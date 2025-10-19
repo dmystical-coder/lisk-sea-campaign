@@ -958,6 +958,268 @@ const deployedContracts = {
         transferFrom: "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       },
     },
+    PriceFeed: {
+      address: "0xB765701D3a1338578f230d076e0B21a0D5c69D07",
+      abi: [
+        {
+          inputs: [],
+          name: "CalldataMustHaveValidPayload",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "CalldataOverOrUnderFlow",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "CanNotPickMedianOfEmptyArray",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DataPackageTimestampMustNotBeZero",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DataPackageTimestampsMustBeEqual",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DataTimestampCannotBeZero",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EachSignerMustProvideTheSameValue",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EmptyCalldataPointersArr",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "GetDataServiceIdNotImplemented",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "IncorrectUnsignedMetadataSize",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "receivedSignersCount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "requiredSignersCount",
+              type: "uint256",
+            },
+          ],
+          name: "InsufficientNumberOfUniqueSigners",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidCalldataPointer",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "signedHash",
+              type: "bytes32",
+            },
+          ],
+          name: "InvalidSignature",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "RedstonePayloadMustHaveAtLeastOneDataPackage",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receivedSigner",
+              type: "address",
+            },
+          ],
+          name: "SignerNotAuthorised",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TimestampsMustBeEqual",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "valueByteSize",
+              type: "uint256",
+            },
+          ],
+          name: "TooLargeValueByteSize",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256[]",
+              name: "values",
+              type: "uint256[]",
+            },
+          ],
+          name: "aggregateValues",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "extractTimestampsAndAssertAllAreEqual",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "extractedTimestamp",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "pure",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "signerAddress",
+              type: "address",
+            },
+          ],
+          name: "getAuthorisedSignerIndex",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getBtcPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getDataServiceId",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getEthPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getMultiplePrices",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "ethPrice",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "btcPrice",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getUniqueSignersThreshold",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "receivedTimestampMilliseconds",
+              type: "uint256",
+            },
+          ],
+          name: "validateTimestamp",
+          outputs: [],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        aggregateValues: "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol",
+        extractTimestampsAndAssertAllAreEqual:
+          "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol",
+        getAuthorisedSignerIndex: "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol",
+        getDataServiceId: "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol",
+        getUniqueSignersThreshold: "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol",
+        validateTimestamp: "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol",
+      },
+    },
     VNDToken: {
       address: "0x3A7DCACc859112004eC0dD166E7a9C35C88F61Db",
       abi: [
