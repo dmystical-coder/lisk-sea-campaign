@@ -1,11 +1,6 @@
 {
   "buildCommand": "cd packages/nextjs && yarn build",
-  "installCommand": "pip3 install setuptools && yarn install --inline-builds",
+  "installCommand": "yarn install --ignore-scripts",
   "framework": null,
-  "outputDirectory": "packages/nextjs/.next",
-  "build": {
-    "env": {
-      "PYTHON_VERSION": "3.11"
-    }
-  }
+  "outputDirectory": "packages/nextjs/.next"
 }
