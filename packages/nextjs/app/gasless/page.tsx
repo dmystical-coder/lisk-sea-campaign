@@ -6,6 +6,9 @@ import { liskSepoliaThirdweb } from "~~/chains";
 import { SmartWalletDemo } from "~~/components/example-ui/SmartWalletDemo";
 import { thirdwebClient } from "~~/services/web3/thirdwebConfig";
 
+// Disable static generation for this page
+export const dynamic = "force-dynamic";
+
 // ✅ Use shared client
 
 const Gasless: NextPage = () => {
