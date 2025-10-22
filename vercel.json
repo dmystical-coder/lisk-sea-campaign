@@ -1,6 +1,5 @@
 {
   "buildCommand": "cd packages/nextjs && yarn build",
-  "installCommand": "yarn install --ignore-scripts",
   "framework": null,
   "outputDirectory": "packages/nextjs/.next"
 }
