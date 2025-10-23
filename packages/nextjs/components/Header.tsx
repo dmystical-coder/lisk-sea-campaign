@@ -7,9 +7,12 @@ import { Logo } from "./Logo";
 import {
   Bars3Icon,
   BugAntIcon,
+  ChevronDownIcon,
   CurrencyDollarIcon,
   HomeIcon,
   ListBulletIcon,
+  RectangleStackIcon,
+  ShoppingCartIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
 import {
@@ -27,7 +30,8 @@ type HeaderMenuLink = {
   icon?: React.ReactNode;
 };
 
-export const menuLinks: HeaderMenuLink[] = [
+// Main navigation links (for desktop)
+export const mainMenuLinks: HeaderMenuLink[] = [
   {
     label: "Home",
     href: "/",
@@ -37,6 +41,15 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "Debug Contracts",
     href: "/debug",
     icon: <BugAntIcon className="h-4 w-4" />,
+  },
+];
+
+// Apps dropdown links
+export const appsMenuLinks: HeaderMenuLink[] = [
+  {
+    label: "Marketplace",
+    href: "/marketplace",
+    icon: <ShoppingCartIcon className="h-4 w-4" />,
   },
   {
     label: "Oracle",
@@ -55,12 +68,72 @@ export const menuLinks: HeaderMenuLink[] = [
   },
 ];
 
-export const HeaderMenuLinks = () => {
+// All links combined (for mobile)
+export const allMenuLinks: HeaderMenuLink[] = [...mainMenuLinks, ...appsMenuLinks];
+
+// Apps Dropdown Component for Desktop
+const AppsDropdown = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useOutsideClick(
+    dropdownRef,
+    useCallback(() => setIsOpen(false), []),
+  );
+
+  const isAnyAppActive = appsMenuLinks.some(link => pathname === link.href);
+
+  return (
+    <div className="dropdown dropdown-bottom" ref={dropdownRef}>
+      <label
+        tabIndex={0}
+        className={cn(
+          "btn btn-ghost normal-case flex items-center gap-2 px-4 py-2 h-auto min-h-0 text-sm rounded-md transition-colors duration-200 hover:bg-base-200",
+          isAnyAppActive ? "bg-base-100 primary-content" : "text-slate-400",
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <RectangleStackIcon className="h-4 w-4" />
+        <span>Apps</span>
+        <ChevronDownIcon className={cn("h-3 w-3 transition-transform duration-200", isOpen && "rotate-180")} />
+      </label>
+      {isOpen && (
+        <ul
+          tabIndex={0}
+          className="menu dropdown-content mt-2 p-2 shadow-lg bg-base-100 rounded-box w-52 z-[100] border border-base-300"
+          onClick={() => setIsOpen(false)}
+        >
+          {appsMenuLinks.map(({ label, href, icon }) => {
+            const isActive = pathname === href;
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2.5 text-sm transition-colors duration-200 hover:bg-base-200 rounded-lg",
+                    isActive ? "bg-base-200 primary-content font-medium" : "text-slate-400",
+                  )}
+                >
+                  {icon}
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+// Desktop Menu Links
+export const DesktopMenuLinks = () => {
   const pathname = usePathname();
 
   return (
     <>
-      {menuLinks.map(({ label, href, icon }) => {
+      {mainMenuLinks.map(({ label, href, icon }) => {
         const isActive = pathname === href;
         return (
           <li key={href}>
@@ -68,7 +141,38 @@ export const HeaderMenuLinks = () => {
               href={href}
               passHref
               className={cn(
-                "relative flex items-center justify-between px-4 py-2 text-sm transition-colors duration-200",
+                "relative flex items-center gap-2 px-3 py-2 h-auto min-h-0 text-sm transition-colors duration-200 hover:bg-base-200 rounded-lg",
+                isActive ? "bg-base-100 primary-content" : "text-slate-400",
+              )}
+            >
+              {icon}
+              <span>{label}</span>
+            </Link>
+          </li>
+        );
+      })}
+      <li className="flex items-center">
+        <AppsDropdown />
+      </li>
+    </>
+  );
+};
+
+// Mobile Menu Links (includes all links)
+export const MobileMenuLinks = () => {
+  const pathname = usePathname();
+
+  return (
+    <>
+      {allMenuLinks.map(({ label, href, icon }) => {
+        const isActive = pathname === href;
+        return (
+          <li key={href}>
+            <Link
+              href={href}
+              passHref
+              className={cn(
+                "relative flex items-center gap-2 px-4 py-2 text-sm transition-colors duration-200",
                 isActive ? "bg-base-100 primary-content" : "text-slate-400",
               )}
             >
@@ -78,6 +182,12 @@ export const HeaderMenuLinks = () => {
           </li>
         );
       })}
+      <li className="border-t border-base-300 mt-2 pt-2">
+        <div className="px-2 py-2 flex flex-col gap-2">
+          <SuperchainFaucetButton />
+          <DappConsoleButton />
+        </div>
+      </li>
     </>
   );
 };
@@ -114,7 +224,7 @@ export const Header = () => {
                 setIsDrawerOpen(false);
               }}
             >
-              <HeaderMenuLinks />
+              <MobileMenuLinks />
             </ul>
           )}
         </div>
@@ -128,14 +238,16 @@ export const Header = () => {
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
-          <HeaderMenuLinks />
+          <DesktopMenuLinks />
         </ul>
       </div>
       <div className="navbar-end flex-grow mr-4">
         <RainbowKitCustomConnectButton />
         <FaucetButton />
-        <SuperchainFaucetButton />
-        <DappConsoleButton />
+        <div className="hidden lg:flex gap-2">
+          <SuperchainFaucetButton />
+          <DappConsoleButton />
+        </div>
       </div>
     </header>
   );
